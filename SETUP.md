@@ -5,6 +5,37 @@
 
 ---
 
+## 0. ส่งมอบให้เพื่อน (ฝั่งเจ้าของ — ทำตามลำดับนี้ 4 ข้อ)
+
+1. **โค้ด** — repo อยู่ที่ `github.com/SightBob/quotation-web` (private)
+   → Settings → Collaborators → Add people → เชิญเพื่อน (ส่งลิงก์ invite)
+   หรือส่งไฟล์ zip (ไม่รวม `node_modules`, `.next`, `.env.local`)
+
+2. **ฐานข้อมูล** — เลือก 1 อย่าง
+   - **แชร์โปรเจกต์เดิม** (แนะนำ ข้อมูลเดียวกัน): Supabase Dashboard → Organization →
+     Members → Invite member (อีเมลเพื่อน) แล้วให้เพื่อนตั้ง DB password ของตัวเอง
+   - **แยกโปรเจกต์** (ข้อมูลแยก): ให้เพื่อนสร้างใหม่ตามหัวข้อ 3 กรณี B
+
+3. **ส่งค่า `.env.local`** — ส่งให้เพื่อนทางช่องทางที่ปลอดภัย (เช่น 1Password /
+   Google Drive ส่วนตัว / ส่งในแชทส่วนตัว) **อย่าส่งใน repo**
+   เนื้อหาที่ต้องส่ง:
+
+   ```env
+   NEXT_PUBLIC_SUPABASE_URL=https://<ref>.supabase.co
+   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_...
+   DATABASE_URL=postgresql://postgres.<ref>:<db-password>@aws-0-<region>.pooler.supabase.com:5432/postgres
+   ```
+
+   (ถ้าใช้โปรเจกต์เดียวกัน ให้เพื่อนตั้ง DB password ใหม่เองแล้วใส่ค่านั้นแทน —
+   ทำให้แต่ละคนมีรหัสผ่านของตัวเอง ไม่ต้องแชร์รหัสกัน)
+
+4. **บัญชีเข้าใช้งาน** — ให้เพื่อนสร้างเองที่ Supabase → Authentication → Users →
+   Add user (หัวข้อ 4) หรือรัน `npm run user:add -- <email> <password> admin`
+
+> หลังจากนั้นเพื่อนทำตามหัวข้อ 1 → 5 ได้เลย
+
+---
+
 ## 0. สรุปสั้น ๆ (ข้อมูลที่ต้องขอจากเจ้าของโปรเจกต์)
 
 | ต้องการ | ที่ไหน | หมายเหตุ |
