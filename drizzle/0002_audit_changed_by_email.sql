@@ -1,0 +1,1 @@
+ALTER TABLE "quotation_audit_logs" ADD COLUMN "changed_by_email" text;

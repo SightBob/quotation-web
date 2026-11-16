@@ -1,0 +1,9 @@
+# ให้ line ending เป็น LF ทั้ง repo (กัน diff ยุ่งเวลาของเพื่อนบน Windows/macOS/Linux)
+* text=auto eol=lf
+
+# ไฟล์รูป
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.ico binary
+*.pdf binary

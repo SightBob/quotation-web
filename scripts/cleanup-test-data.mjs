@@ -1,0 +1,14 @@
+import { readFileSync } from "node:fs";
+import { Client } from "pg";
+const url = readFileSync(".env.local", "utf8").match(/DATABASE_URL=(.*)/)[1].trim();
+const db = new Client({ connectionString: url });
+await db.connect();
+await db.query("delete from quotation_audit_logs where quotation_id <> (select id from quotations where doc_no = 'QT69011-002')");
+await db.query("delete from quotation_items where quotation_id <> (select id from quotations where doc_no = 'QT69011-002')");
+await db.query("delete from quotations where doc_no <> 'QT69011-002'");
+await db.query("delete from doc_counters");
+await db.query("insert into doc_counters (prefix, last_seq) values ('QT69011', 2)");
+console.log("quotations:", (await db.query("select doc_no, status from quotations")).rows);
+console.log("audit logs:", (await db.query("select count(*)::int n from quotation_audit_logs")).rows[0].n);
+console.log("counter:", (await db.query("select * from doc_counters")).rows);
+await db.end();

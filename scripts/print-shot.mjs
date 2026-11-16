@@ -1,0 +1,10 @@
+import puppeteer from "puppeteer-core";
+const b = await puppeteer.launch({executablePath:"C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",headless:true,args:["--no-sandbox"]});
+const p = await b.newPage();
+await p.setViewport({width:794,height:1123,deviceScaleFactor:1.5});
+await p.goto("http://localhost:3000/quotations/new",{waitUntil:"networkidle0"});
+await p.evaluate(()=>document.fonts.ready);
+await p.emulateMediaType("print");
+await p.screenshot({path:process.env.TEMP+"\\opencode\\print1.png",fullPage:true});
+await b.close();
+console.log("ok");

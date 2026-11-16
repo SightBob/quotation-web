@@ -1,0 +1,14 @@
+import { readFileSync } from "node:fs";
+import { Client } from "@modelcontextprotocol/sdk/client/index.js";
+import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
+const envLocal = readFileSync(".env.local", "utf8");
+const ref = envLocal.match(/NEXT_PUBLIC_SUPABASE_URL=https:\/\/([a-z]+)\.supabase\.co/)?.[1];
+const transport = new StdioClientTransport({ command: "node", args: ["tools/supabase-mcp/index.mjs"], env: { ...process.env, SUPABASE_ACCESS_TOKEN: "", SUPABASE_PROJECT_REF: ref } });
+const client = new Client({ name: "migrate", version: "1" }, { capabilities: {} });
+await client.connect(transport);
+const file = process.argv[2] ?? "drizzle/0002_audit_changed_by_email.sql";
+const sql = readFileSync(file, "utf8").replace(/^--> statement-breakpoint\s*$/gm, "");
+const name = file.split("/").pop().replace(/^\d+_/, "").replace(/\.sql$/, "");
+const res = await client.callTool({ name: "apply_migration", arguments: { name, query: sql } });
+console.log(res.isError ? res.content[0].text : "migration applied: " + name);
+await client.close();

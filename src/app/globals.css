@@ -1,0 +1,472 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sarabun: var(--font-sarabun), "Sarabun", "Tahoma", sans-serif;
+}
+
+@page {
+  size: A4 portrait;
+  margin: 10mm;
+}
+
+html,
+body {
+  background: #6b7280;
+}
+
+body {
+  font-family: var(--font-sarabun);
+  margin: 0;
+}
+
+/* ---------- page shell ---------- */
+.sheet {
+  width: 210mm;
+  min-height: 297mm;
+  margin: 8mm auto;
+  padding: 10mm;
+  background: #fff;
+  box-shadow: 0 4px 24px rgb(0 0 0 / 35%);
+}
+
+@media print {
+  html,
+  body {
+    background: #fff;
+  }
+
+  /* app chrome never prints */
+  .no-print {
+    display: none !important;
+  }
+
+  .sheet {
+    width: auto;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+  }
+
+  .form-panel {
+    display: none !important;
+  }
+
+  .preview-panel {
+    overflow: visible !important;
+    background: #fff !important;
+    padding: 0 !important;
+  }
+
+  .preview-wrap {
+    width: auto !important;
+    height: auto !important;
+  }
+
+  .preview-scale {
+    transform: none !important;
+  }
+}
+
+/* ---------- live preview (split view) ---------- */
+.preview-sheet {
+  margin: 0;
+}
+
+@media print {
+  /* print the previewed document at full size, ignore the on-screen zoom */
+  .preview-viewport,
+  .preview-panel {
+    overflow: visible !important;
+    background: #fff !important;
+    padding: 0 !important;
+  }
+
+  .preview-spacer {
+    width: auto !important;
+    height: auto !important;
+  }
+
+  .preview-paper {
+    transform: none !important;
+    width: auto !important;
+  }
+}
+
+/* ---------- document ---------- */
+.doc {
+  color: #000;
+  font-size: 10pt;
+  line-height: 1.35;
+}
+
+.doc-label {
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.doc-value {
+  font-weight: 700;
+}
+
+.doc-label-blue {
+  color: #1f3864;
+  font-weight: 700;
+}
+
+/* header */
+.doc-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 4mm;
+  margin-bottom: 2mm;
+}
+
+.doc-logo {
+  width: 36mm;
+  height: 22mm;
+  background: #8cc63f;
+  border-radius: 3mm;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+
+.doc-logo-num {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 26pt;
+  line-height: 1;
+  color: #1f2b12;
+}
+
+.doc-logo-text {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 8pt;
+  letter-spacing: 0.3pt;
+  color: #1f2b12;
+}
+
+.doc-logo-img {
+  width: 36mm;
+  height: 22mm;
+  object-fit: contain;
+  flex: none;
+}
+
+.doc-company {
+  flex: 1;
+  padding-top: 0.5mm;
+}
+
+.doc-company-en {
+  color: #3e7c1f;
+  font-size: 14pt;
+  font-weight: 700;
+}
+
+.doc-company-th {
+  font-size: 11.5pt;
+  font-weight: 700;
+}
+
+.doc-company-line {
+  font-size: 9pt;
+}
+
+.doc-title {
+  flex: none;
+  width: 29mm;
+  border: 0.5pt solid #000;
+  padding: 1.5mm 1mm;
+  text-align: center;
+}
+
+.doc-title-th {
+  color: #1f3864;
+  font-size: 14pt;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.doc-title-en {
+  color: #1f3864;
+  font-size: 11pt;
+  font-weight: 700;
+}
+
+/* info band */
+.doc-info {
+  display: flex;
+  border: 0.5pt solid #000;
+  margin-bottom: 0;
+}
+
+.doc-info-left {
+  width: 66%;
+  padding: 1mm 2mm;
+  border-right: 0.5pt solid #000;
+}
+
+.doc-info-right {
+  width: 34%;
+  padding: 1mm 2mm;
+}
+
+.doc-info-top {
+  display: grid;
+  grid-template-columns: 52% 1fr;
+  align-items: baseline;
+  font-size: 9pt;
+}
+
+.doc-branch {
+  white-space: nowrap;
+}
+
+.doc-value-gap {
+  margin-left: 2mm;
+}
+
+.doc-info-row {
+  display: flex;
+  gap: 2mm;
+  font-size: 9pt;
+  margin-top: 0.5mm;
+}
+
+.doc-info-centered {
+  font-size: 9pt;
+  text-align: center;
+  margin-top: 0.5mm;
+}
+
+.doc-info-centered .doc-value {
+  margin-left: 1mm;
+}
+
+/* items */
+.doc-items {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  border-left: 0.5pt solid #000;
+  border-right: 0.5pt solid #000;
+}
+
+.doc-items th {
+  background: #f6d9a8;
+  border-right: 0.5pt solid #000;
+  font-size: 8.5pt;
+  font-weight: 700;
+  text-align: center;
+  padding: 1mm 0.5mm;
+  vertical-align: middle;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.doc-items td {
+  border-right: 0.5pt solid #000;
+  font-size: 9.5pt;
+  padding: 0.4mm 1mm;
+  vertical-align: top;
+}
+
+.doc-items thead {
+  display: table-header-group;
+}
+
+.doc-items tr {
+  height: 6.4mm;
+}
+
+.col-no {
+  width: 13.8%;
+}
+
+.col-desc {
+  width: 50.5%;
+  position: relative;
+}
+
+.col-unit {
+  width: 9.3%;
+}
+
+.col-disc {
+  width: 7.7%;
+}
+
+.col-uprice {
+  width: 9.3%;
+}
+
+.col-amount {
+  width: 9.4%;
+}
+
+.th-desc {
+  display: block;
+}
+
+.th-qty {
+  position: absolute;
+  right: 1mm;
+  top: 1mm;
+}
+
+.td-desc {
+  display: inline-block;
+  max-width: 88%;
+  vertical-align: top;
+}
+
+.td-qty {
+  float: right;
+  padding-right: 4mm;
+}
+
+.td-center {
+  text-align: center;
+}
+
+.td-right {
+  text-align: right;
+}
+
+/* bottom band: remark + totals */
+.doc-bottom {
+  display: flex;
+  border: 0.5pt solid #000;
+  border-top: 0;
+}
+
+.doc-remark {
+  width: 66%;
+  border-right: 0.5pt solid #000;
+  padding: 1mm 2mm 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.doc-remark-title {
+  font-size: 9.5pt;
+  font-weight: 700;
+}
+
+.doc-remark-row {
+  display: flex;
+  font-size: 9.5pt;
+  margin-top: 0.8mm;
+}
+
+.doc-remark-row span:last-child {
+  margin-left: auto;
+  width: 40%;
+}
+
+.doc-remark-text {
+  font-size: 9pt;
+  margin-top: 1mm;
+}
+
+.doc-baht {
+  margin: auto -2mm 0;
+  background: #d9d9d9;
+  text-align: center;
+  font-size: 9.5pt;
+  font-weight: 700;
+  padding: 0.6mm 0;
+}
+
+.doc-summary {
+  width: 34%;
+}
+
+.doc-summary-row {
+  display: flex;
+  align-items: baseline;
+  border-bottom: 0.5pt solid #000;
+  min-height: 8mm;
+}
+
+.doc-summary-row:last-child {
+  border-bottom: 0;
+}
+
+.doc-sum-label {
+  width: 66%;
+  color: #1f3864;
+  font-weight: 700;
+  font-size: 8.5pt;
+  text-align: right;
+  padding-right: 2mm;
+  white-space: nowrap;
+}
+
+.doc-sum-value {
+  width: 35%;
+  border-left: 0.5pt solid #000;
+  text-align: right;
+  padding-right: 2mm;
+  font-weight: 700;
+  font-size: 9.5pt;
+}
+
+.doc-summary-net .doc-sum-label,
+.doc-summary-net .doc-sum-value {
+  font-weight: 700;
+}
+
+/* signatures */
+.doc-sign {
+  display: flex;
+  border: 0.5pt solid #000;
+  border-top: 0;
+}
+
+.doc-sign-cell {
+  width: 37%;
+  padding: 1.5mm 2mm;
+  border-right: 0.5pt solid #000;
+  text-align: center;
+  font-size: 9.5pt;
+}
+
+.doc-sign-cell:nth-child(2) {
+  width: 29%;
+}
+
+.doc-sign-cell:last-child {
+  width: 34%;
+  border-right: 0;
+}
+
+.doc-sign-head {
+  font-weight: 700;
+}
+
+.doc-sign-line {
+  margin-top: 6mm;
+}
+
+.doc-sign-role {
+  font-weight: 700;
+  margin-top: 1mm;
+}
+
+.doc-sign-date {
+  margin-top: 0.5mm;
+}
+
+.doc-sign-img {
+  height: 12mm;
+  object-fit: contain;
+}
+
+.doc-sign-name {
+  font-weight: 700;
+  margin-top: 4mm;
+}
